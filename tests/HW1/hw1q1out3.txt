@@ -1,0 +1,2 @@
+Welcome, please enter the weights of each ingredient:
+The final product weighs 26.000 pounds and is 30 percent pure.
