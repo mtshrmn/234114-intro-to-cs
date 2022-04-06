@@ -19,6 +19,9 @@ for file in $(ls src/*.c); do
       printf "${GREEN}PASS${NC}\n"
     else
       printf "${RED}FAIL${NC}\n"
+      echo "input file:"
+      cat $input
+      echo "--------"
      ./$file < $input | diff --suppress-common-lines --strip-trailing-cr --ignore-trailing-space --color=always $output -
      echo "--------------------------------------------------------"
     fi
