@@ -10,6 +10,12 @@ ifeq (run,$(firstword $(MAKECMDGOALS)))
   $(eval $(RUN_ARGS):;@:)
 endif
 
+ifeq (archive,$(firstword $(MAKECMDGOALS)))
+  ARCHIVE_ARGS:= $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  $(eval $(ARCHIVE_ARGS):;@:)
+endif
+
+
 test:
 	@./test.sh
 
@@ -19,3 +25,6 @@ build:
 
 run:
 	@./bin/$(RUN_ARGS)
+
+archive:
+	zip -j archives/$(ARCHIVE_ARGS) src/$(ARCHIVE_ARGS)q*.c students.txt
