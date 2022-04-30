@@ -16,15 +16,24 @@ ifeq (archive,$(firstword $(MAKECMDGOALS)))
 endif
 
 
-test:
+test: bin
 	@./test.sh
 
 # example usage `make build hw1q1`
-build:
+build: bin
 	$(CC) $(CFLAGS) src/$(BUILD_ARGS).c -o bin/$(BUILD_ARGS)
 
-run:
+run: bin
 	@./bin/$(RUN_ARGS)
 
-archive:
+archive: archives students
 	zip -j archives/$(ARCHIVE_ARGS) src/$(ARCHIVE_ARGS)q*.c students.txt
+
+archives:
+	mkdir archives
+
+bin:
+	mkdir bin
+
+students:
+	@touch students.txt
