@@ -1,0 +1,9 @@
+Enter size of key:
+Enter the key:
+Enter the number of columns of the message:
+Enter the message you want to encrypt:
+Encrypted message:
+1 1 8 1
+2 10 15 6
+5 0 11 3
+3 9 12 13

@@ -1,0 +1,2 @@
+Please enter a sequence:
+Maximum-Parity degree: 9

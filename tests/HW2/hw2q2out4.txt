@@ -1,0 +1,8 @@
+Enter a sequence of characters:
+Number of digits: 10
+Longest digit subsequence: 10
+Frequencies: 0.00 0.50 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.50
+Sequential:
+  1 9 
+1 10 25 
+9 0 10 
