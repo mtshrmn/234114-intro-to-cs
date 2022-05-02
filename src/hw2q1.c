@@ -1,8 +1,6 @@
 #include <stdio.h>
 
 #define N 10
-// you said no logic statements, bear the consequences
-// NOTE: on x86, a ternary operation would be the fastest
 #define MAX(a, b) ((a > b) * a + (a <= b) * b)
 #define MIN(a, b) ((a < b) * a + (a >= b) * b)
 
@@ -11,6 +9,8 @@
 int is_locally_max(int seq[N], int ind) {
   int val = seq[ind];
   // clamp neighbors to an actual value in the sequence
+  // if neighbors are clamped, they will be equal to `val`
+  // and of course that val >= val
   int r_neighbor = seq[MIN((ind + 1), (N - 1))];
   int l_neighbor = seq[MAX((ind - 1), 0)];
   return val >= MAX(r_neighbor, l_neighbor);
@@ -31,7 +31,7 @@ int main() {
     scanf("%d", &seq[i]);
   }
 
-  // could be faster than O(2n)
+  // for each index, we add the 
   for (int i = 0; i < 10; ++i) {
     rank += is_locally_max(seq, i) ^ is_odd_even(seq, i);
   }

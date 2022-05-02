@@ -26,10 +26,12 @@ int populate_info(int d_frequency[N], int sequential[N][N]) {
   printf("Enter a sequence of characters:\n");
   while (scanf("%c", &ch) != EOF) {
     if( ch >= '0' && ch <= '9' ) {
-      d_amount++;
+      // update the sequential upon addition of a new digit
       for (int i = 0; i < N; ++i) {
         sequential[i][ch - '0'] += d_frequency[i];
       }
+      // update everything else according to the new info
+      d_amount++;
       d_frequency[ch - '0']++;
       d_combo++;
       d_combo_max = MAX(d_combo_max, d_combo);
@@ -78,19 +80,21 @@ void print_sequential(int d_frequency[N], int sequential[N][N]) {
 
   printf("\n");
 
+  // body of the table
   for (int i = 0; i < N; ++i) {
     // dont print an empty row
     if (d_frequency[i] == 0) {
       continue;
     }
 
-    printf("%d", i);
+    printf("%d", i); // leftmost column indicating the index
     // print the occurrences
     for (int j = 0; j < N; ++j) {
       if (d_frequency[j] != 0) {
         printf(" %d", sequential[i][j]);
       }
     }
+    // homework require new line at the end
     printf("\n");
   }
 }
