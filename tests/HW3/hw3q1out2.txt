@@ -1,0 +1,343 @@
+Welcome to Battleship!
+Please enter seed:
+Please enter level:
+9 |                     
+8 |                     
+7 |                     
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |                     
+1 |                     
+0 |                     
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+Enter location for Battleship of size 3:
+9 |                     
+8 |                     
+7 |                     
+6 |         * * *       
+5 |                     
+4 |                     
+3 |                     
+2 |                     
+1 |                     
+0 |                     
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+Enter location for Battleship of size 3:
+Error: Incorrect parameters! Please enter location for the Battleship size 3 again:
+9 |                     
+8 |                     
+7 |                     
+6 |         * * *       
+5 |                     
+4 |                     
+3 |                     
+2 |               *     
+1 |                 *   
+0 |                   * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+Enter location for Battleship of size 4:
+9 |                     
+8 |                     
+7 |                     
+6 |         * * *       
+5 |                     
+4 |                     
+3 |                     
+2 |               *     
+1 |                 *   
+0 | * * * *           * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+Enter location for Battleship of size 5:
+All battleships have been located successfully!
+Your following table:
+9 |                     
+8 |                     
+7 |                     
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |                     
+1 |                     
+0 |                     
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 |                     
+8 |                     
+7 |     * * * * *       
+6 |         * * *       
+5 |                     
+4 |                     
+3 |                     
+2 |               *     
+1 |                 *   
+0 | * * * *           * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Your following table:
+9 |                     
+8 |                     
+7 |                 X   
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |                     
+1 |                     
+0 |                     
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 |           X   X     
+8 |                   X 
+7 |     * * * * * X     
+6 |         * * *       
+5 |                     
+4 | X                   
+3 |         X           
+2 |       X       * X   
+1 |       X         *   
+0 | * * * * X         * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Error: Incorrect parameters! Please enter coordinates for attack again:
+Your following table:
+9 |                     
+8 |                     
+7 |                 X   
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |                     
+1 |                     
+0 |   X                 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 |           X   X     
+8 | X                 X 
+7 |     * * * * * X     
+6 |   X X   * * V       
+5 |                     
+4 | X           X       
+3 |     X   X           
+2 |       X       * X   
+1 |       X   X     * X 
+0 | * V * * X   X     * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Your following table:
+9 |                     
+8 |                     
+7 |                 X   
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |                     
+1 |                     
+0 |   X X               
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 |           X   X     
+8 | X                 X 
+7 |     * * * * * X     
+6 |   X X X * V V       
+5 |         X           
+4 | X X   X     X       
+3 |     X   X       X   
+2 |   X   X       V X   
+1 |       X X X     * X 
+0 | V V * * X   X     * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Your following table:
+9 |                     
+8 |                     
+7 |                 X   
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |                     
+1 |                     
+0 | X X X               
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 | X         X   X     
+8 | X                 X 
+7 |     * * * * * X     
+6 |   X X X * V V     X 
+5 |         X X       X 
+4 | X X   X   X X       
+3 |     X   X     X X   
+2 | X X   X       V X   
+1 | X     X X X     * X 
+0 | V V V * X X X     * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Your following table:
+9 |                     
+8 |                     
+7 |                 X   
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |                     
+1 |     X               
+0 | X X X               
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 | X         X   X     
+8 | X       X       X X 
+7 |     * * * * * X     
+6 |   X X X * V V   X X 
+5 |         X X X     X 
+4 | X X   X   X X       
+3 |   X X   X X X X X X 
+2 | X X   X       V X   
+1 | X     X X X   X V X 
+0 | V V V * X X X     * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Your following table:
+9 |                     
+8 |                     
+7 |                 X   
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |     X               
+1 |     X               
+0 | X X X               
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 | X         X   X   X 
+8 | X X     X   X   X X 
+7 | X   * * * V * X     
+6 |   X X X * V V   X X 
+5 |         X X X   X X 
+4 | X X   X X X X       
+3 |   X X   X X X X X X 
+2 | X X X X     X V X   
+1 | X X   X X X   X V X 
+0 | V V V * X X X     * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Your following table:
+9 |                     
+8 |                     
+7 |                 X   
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |     X               
+1 |   X X               
+0 | X X X               
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 | X X     X X   X   X 
+8 | X X   X X   X X X X 
+7 | X   * * * V * X     
+6 | X X X X * V V   X X 
+5 | X   X   X X X   X X 
+4 | X X X X X X X       
+3 |   X X   X X X X X X 
+2 | X X X X     X V X X 
+1 | X X   X X X X X V X 
+0 | V V V * X X X     * 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Your battleship of size 3 has been drowned!
+Your following table:
+9 |                     
+8 |                     
+7 |                 X   
+6 |                     
+5 |                     
+4 |                     
+3 |                     
+2 |   X X               
+1 |   X X               
+0 | X X X               
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 | X X X X X X   X   X 
+8 | X X   X X   X X X X 
+7 | X   * V * V V X     
+6 | X X X X * V V   X X 
+5 | X   X   X X X   X X 
+4 | X X X X X X X X     
+3 | X X X   X X X X X X 
+2 | X X X X X   X V X X 
+1 | X X X X X X X X V X 
+0 | V V V * X X X X   V 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Your following table:
+9 |                     
+8 |                     
+7 |                 X   
+6 |                     
+5 |                     
+4 |                     
+3 |   X                 
+2 |   X X               
+1 |   X X               
+0 | X X X               
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+The computer's following table:
+9 | X X X X X X X X   X 
+8 | X X X X X X X X X X 
+7 | X X * V V V V X   X 
+6 | X X X X * V V X X X 
+5 | X   X   X X X X X X 
+4 | X X X X X X X X X   
+3 | X X X X X X X X X X 
+2 | X X X X X   X V X X 
+1 | X X X X X X X X V X 
+0 | V V V * X X X X   V 
+    - - - - - - - - - - 
+    0 1 2 3 4 5 6 7 8 9 
+It's your turn!
+Enter coordinates for attack:
+Your battleship of size 5 has been drowned!
+Your battleship of size 3 has been drowned!
+Your battleship of size 4 has been drowned!
+Game over! You lost...
