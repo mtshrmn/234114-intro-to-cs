@@ -72,14 +72,6 @@ unsigned int init_game() {
     return level;
 }
 
-void init_board(char board[BSIZE][BSIZE]) {
-    for (int row = 0; row < BSIZE; ++row) {
-        for (int col = 0; col < BSIZE; ++col) {
-            board[row][col] = ' ';
-        }
-    }
-}
-
 int get_ship_len(int id) {
     int lengths[SHIP_AMOUNT] = {SHIP_A, SHIP_B, SHIP_C, SHIP_D};
     return lengths[id];
@@ -184,13 +176,23 @@ void place_ship_cpu(char board[BSIZE][BSIZE], int ship_id) {
     } while (!place_ship(board, x, y, dir_x, dir_y, ship_id));
 }
 
+void init_board(char board[BSIZE][BSIZE]) {
+    for (int row = 0; row < BSIZE; ++row) {
+        for (int col = 0; col < BSIZE; ++col) {
+            board[row][col] = ' ';
+        }
+    }
+}
+
 void init_board_cpu(char board[BSIZE][BSIZE]) {
+    init_board(board);
     for (int id = 0; id < SHIP_AMOUNT; ++id) {
         place_ship_cpu(board, id);
     }
 }
 
 int init_board_user(char board[BSIZE][BSIZE]) {
+    init_board(board);
     for (int id = 0; id < SHIP_AMOUNT; ++id) {
         if (!place_ship_user(board, id)) {
             return 0;
@@ -226,18 +228,6 @@ int attack_board(board, histogram, x, y)
     return 1;
 }
 
-void prompt_attack_user(p_board, cpu_board)
-    char p_board[BSIZE][BSIZE];
-    char cpu_board[BSIZE][BSIZE];
-{
-    printf("Your following table:\n");
-    print_cpu_board(cpu_board);
-    printf("The computer's following table:\n");
-    print_player_board(p_board);
-    printf("It's your turn!\n"
-           "Enter coordinates for attack:\n");
-}
-
 void check_ships_user(int histogram[SHIP_AMOUNT]) {
     for (int i = 0; i < SHIP_AMOUNT; ++i) {
         int len = get_ship_len(i);
@@ -260,6 +250,19 @@ void check_ships_cpu(int histogram[SHIP_AMOUNT]) {
         }
     }
 }
+
+void prompt_attack_user(p_board, cpu_board)
+    char p_board[BSIZE][BSIZE];
+    char cpu_board[BSIZE][BSIZE];
+{
+    printf("Your following table:\n");
+    print_cpu_board(cpu_board);
+    printf("The computer's following table:\n");
+    print_player_board(p_board);
+    printf("It's your turn!\n"
+           "Enter coordinates for attack:\n");
+}
+
 
 int attack_board_user(p_board, cpu_board, histogram)
     char p_board[BSIZE][BSIZE];
@@ -327,6 +330,7 @@ int loop(p_board, cpu_board, p_histogram, cpu_histogram, level)
 {
     while (1) {
         if (attack_board_user(p_board, cpu_board, cpu_histogram) == 0) {
+            printf("Error: Invalid input!\n");
             return 0;
         }
         attack_board_cpu(p_board, p_histogram, level);
@@ -341,16 +345,16 @@ int loop(p_board, cpu_board, p_histogram, cpu_histogram, level)
     }
 }
 
-
 int main() {
     unsigned int level = init_game();
     char p_board[BSIZE][BSIZE]; // players data table
     char cpu_board[BSIZE][BSIZE]; // cpus data table
     int p_histogram[SHIP_AMOUNT] = {0};
     int cpu_histogram[SHIP_AMOUNT] = {0};
-    init_board(p_board);
-    init_board(cpu_board);
-    init_board_user(p_board);
+    if (init_board_user(p_board) == 0) {
+        printf("Error: Invalid input!\n");
+        return 0;
+    }
     init_board_cpu(cpu_board);
     return loop(p_board, cpu_board, p_histogram, cpu_histogram, level);
 }
