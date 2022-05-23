@@ -1,5 +1,7 @@
 #include <stdio.h>
 #define BSIZE 10
+#define CPU 0
+#define PLAYER 1
 #define SHIP_AMOUNT 4
 #define SHIP_A 3
 #define SHIP_B 3
@@ -18,46 +20,43 @@ void srand_range(unsigned int seed) {
     }
 }
 
+// the board stores the ships' id at their position.
+// the id's are stored as the ascii values of the id.
+// this means this design supports maximum of 10 ships.
+// print_board replaces the ship ids with a given char `replace`.
+void print_board(char board[BSIZE][BSIZE], char replace) {
+    for (int row = BSIZE - 1; row >= 0; --row) {
+        printf("%d |", row);
+        for (int col = 0; col < BSIZE; ++col) {
+            if (board[row][col] >= '0' && board[row][col] <= '9') {
+                printf(" %c", replace);
+            } else {
+                printf(" %c", board[row][col]);
+            }
+        }
+        printf("\n");
+    }
+
+    printf("    - - - - - - - - - -\n   ");
+    for (int col = 0; col < BSIZE; ++col) {
+        printf(" %d", col);
+    }
+    printf("\n");
+}
+
+// let the player see where his ships are located
+// we replace the ship ids with a "*".
 void print_player_board(char board[BSIZE][BSIZE]) {
-    for (int row = BSIZE - 1; row >= 0; --row) {
-        printf("%d |", row);
-        for (int col = 0; col < BSIZE; ++col) {
-            if (board[row][col] >= '0' && board[row][col] <= '9') {
-                printf(" *");
-            } else {
-                printf(" %c", board[row][col]);
-            }
-        }
-        printf("\n");
-    }
-
-    printf("    - - - - - - - - - -\n   ");
-    for (int col = 0; col < BSIZE; ++col) {
-        printf(" %d", col);
-    }
-    printf("\n");
+    print_board(board, '*');
 }
 
+// the cpu board ships should stay hidden,
+// replace the ids with a space.
 void print_cpu_board(char board[BSIZE][BSIZE]) {
-    for (int row = BSIZE - 1; row >= 0; --row) {
-        printf("%d |", row);
-        for (int col = 0; col < BSIZE; ++col) {
-            if (board[row][col] >= '0' && board[row][col] <= '9') {
-                printf("  ");
-            } else {
-                printf(" %c", board[row][col]);
-            }
-        }
-        printf("\n");
-    }
-
-    printf("    - - - - - - - - - -\n   ");
-    for (int col = 0; col < BSIZE; ++col) {
-        printf(" %d", col);
-    }
-    printf("\n");
+    print_board(board, ' ');
 }
 
+// initializes the game, runs the seed and returns the game level.
 unsigned int init_game() {
     printf("Welcome to Battleship!\n");
 
@@ -72,11 +71,17 @@ unsigned int init_game() {
     return level;
 }
 
+// because we work with ship ids and not their length,
+// we need a function to retrieve a ships length by id.
 int get_ship_len(int id) {
     int lengths[SHIP_AMOUNT] = {SHIP_A, SHIP_B, SHIP_C, SHIP_D};
     return lengths[id];
 }
 
+// checks if a given direction is valid
+// let direction be (x,y). if |x| or |y| > 1, it's not ok.
+// if x = y = 0, also not ok.
+// everything else ok.
 int is_direction_ok(int dir_x, int dir_y) {
     // both dir_x and dir_y are in range of [-1, 1]
     // but they cant be both 0 at the same time.
@@ -95,6 +100,7 @@ int is_direction_ok(int dir_x, int dir_y) {
     return 1;
 }
 
+// checks if a ship can be place onto the board.
 int ship_clearance(board, x, y, dir_x, dir_y, ship_id)
     char board[BSIZE][BSIZE];
     int x;
@@ -108,17 +114,19 @@ int ship_clearance(board, x, y, dir_x, dir_y, ship_id)
     }
 
     int ship_len = get_ship_len(ship_id);
-    // does ship fit in board?
+    // check if ships length fits onto board
+    // y coordinate:
     int y_bound = y + dir_y * (ship_len - 1);
     if (y_bound >= BSIZE || y_bound < 0 || y < 0 || y >= BSIZE) {
         return 0;
     }
 
+    // x coordinate:
     int x_bound = x + dir_x * (ship_len - 1);
     if (x_bound >= BSIZE || x_bound < 0 || x < 0 || x >= BSIZE) {
         return 0;
     }
-    // check for ship clearence.
+    // we cannot overwrite an existing ship
     for (int i = 0; i < ship_len; ++i) {
         if (board[y + dir_y * i][x + dir_x * i] != ' ') {
             return 0;
@@ -128,6 +136,8 @@ int ship_clearance(board, x, y, dir_x, dir_y, ship_id)
     return 1;
 }
 
+// given position and direction, place a ship onto board
+// returns the success of placement.
 int place_ship(board, x, y, dir_x, dir_y, ship_id)
     char board[BSIZE][BSIZE];
     int x;
@@ -147,6 +157,9 @@ int place_ship(board, x, y, dir_x, dir_y, ship_id)
     return 1;
 }
 
+// handle the user's ship placement.
+// returns 1 if placement was successful
+// if the user's syntax is wrong, return 0.
 int place_ship_user(char board[BSIZE][BSIZE], int ship_id) {
     int x, y, dir_x, dir_y;
     print_player_board(board);
@@ -166,6 +179,9 @@ int place_ship_user(char board[BSIZE][BSIZE], int ship_id) {
     return 1;
 }
 
+// handle the cpu ship placement
+// because the ship can't input wrong syntax,
+// it doesn't need to be checked. so function returns void.
 void place_ship_cpu(char board[BSIZE][BSIZE], int ship_id) {
     int x, y, dir_x, dir_y;
     do {
@@ -184,6 +200,7 @@ void init_board(char board[BSIZE][BSIZE]) {
     }
 }
 
+// places the ships of the cpu onto its board.
 void init_board_cpu(char board[BSIZE][BSIZE]) {
     init_board(board);
     for (int id = 0; id < SHIP_AMOUNT; ++id) {
@@ -191,6 +208,8 @@ void init_board_cpu(char board[BSIZE][BSIZE]) {
     }
 }
 
+// prompt the user to place his ships onto the board.
+// bubble the syntax error upward and return its status.
 int init_board_user(char board[BSIZE][BSIZE]) {
     init_board(board);
     for (int id = 0; id < SHIP_AMOUNT; ++id) {
@@ -203,6 +222,29 @@ int init_board_user(char board[BSIZE][BSIZE]) {
     return 1;
 }
 
+// checks if the player destroyed one of the oppnent's ships
+// and print it's length
+void check_ships(int histogram[SHIP_AMOUNT], int player) {
+    for (int i = 0; i < SHIP_AMOUNT; ++i) {
+        int len = get_ship_len(i);
+        if (histogram[i] == len) {
+            if (player == CPU) {
+                printf("The computer's battleship of size"
+                       " %d has been drowned!\n", len);
+            } else if (player == PLAYER) {
+                printf("Your battleship of size"
+                       " %d has been drowned!\n", len);
+            }
+            // make sure we never print this ship again
+            histogram[i] += 1;
+        }
+    }
+}
+
+// executes an attack at the specified coordinate.
+// if attack was successful(regardless of result) - return 1.
+// update the result on the board.
+// otherwise return 0 (i.e. coordinates are invalid)
 int attack_board(board, histogram, x, y)
     char board[BSIZE][BSIZE];
     int histogram[SHIP_AMOUNT];
@@ -228,29 +270,8 @@ int attack_board(board, histogram, x, y)
     return 1;
 }
 
-void check_ships_user(int histogram[SHIP_AMOUNT]) {
-    for (int i = 0; i < SHIP_AMOUNT; ++i) {
-        int len = get_ship_len(i);
-        if (histogram[i] == len) {
-            printf("Your battleship of size %d has been drowned!\n", len);
-            // make sure we never print this ship again
-            histogram[i] += 1;
-        }
-    }
-}
-
-void check_ships_cpu(int histogram[SHIP_AMOUNT]) {
-    for (int i = 0; i < SHIP_AMOUNT; ++i) {
-        int len = get_ship_len(i);
-        if (histogram[i] == len) {
-            printf("The computer's battleship of size"
-                   " %d has been drowned!\n", len);
-            // make sure we never print this ship again
-            histogram[i] += 1;
-        }
-    }
-}
-
+// because we have a limitation of 13 loc per function,
+// this function simply prints the prompt, nothing else.
 void prompt_attack_user(p_board, cpu_board)
     char p_board[BSIZE][BSIZE];
     char cpu_board[BSIZE][BSIZE];
@@ -263,7 +284,10 @@ void prompt_attack_user(p_board, cpu_board)
            "Enter coordinates for attack:\n");
 }
 
-
+// prompts the user to attack the cpu.
+// if the input syntax is incorrect, bubble error to main().
+// otherwise keep asking for coordinates until a successful 
+// attack is executed. then return 1.
 int attack_board_user(p_board, cpu_board, histogram)
     char p_board[BSIZE][BSIZE];
     char cpu_board[BSIZE][BSIZE];
@@ -283,10 +307,12 @@ int attack_board_user(p_board, cpu_board, histogram)
         }
         attack_result = attack_board(cpu_board, histogram, x, y);
     }
-    check_ships_cpu(histogram);
+    // checks if one of the cpu's ship was damaged.
+    check_ships(histogram, CPU);
     return 1;
 }
 
+// the cpu will always enter a valid input, so no need to check.
 void attack_board_cpu(p_board, histogram, level)
     char p_board[BSIZE][BSIZE];
     int histogram[SHIP_AMOUNT];
@@ -299,28 +325,24 @@ void attack_board_cpu(p_board, histogram, level)
             y = rand_range(0, 9);
             attack_result = attack_board(p_board, histogram, x, y);
         } while (attack_result == 0);
-        check_ships_user(histogram);
+        // check if one of the users ship was destroyed.
+        check_ships(histogram, PLAYER);
     }
 }
 
-int check_win_cpu(int p_histogram[SHIP_AMOUNT]) {
+// checks if a given histogram indicates a win.
+int check_win(int histogram[SHIP_AMOUNT]) {
     for (int i = 0; i < SHIP_AMOUNT; ++i) {
-        if (p_histogram[i] <= get_ship_len(i)) {
+        if (histogram[i] <= get_ship_len(i)) {
             return 0;
         }
     }
     return 1;
 }
 
-int check_win_user(int cpu_histogram[SHIP_AMOUNT]) {
-    for (int i = 0; i < SHIP_AMOUNT; ++i) {
-        if (cpu_histogram[i] <= get_ship_len(i)) {
-            return 0;
-        }
-    }
-    return 1;
-}
-
+// main game loop, will run forever
+// until the user enters an invalid syntax.
+// if he does, the function returns 0.
 int loop(p_board, cpu_board, p_histogram, cpu_histogram, level)
     char p_board[BSIZE][BSIZE];
     char cpu_board[BSIZE][BSIZE];
@@ -334,11 +356,11 @@ int loop(p_board, cpu_board, p_histogram, cpu_histogram, level)
             return 0;
         }
         attack_board_cpu(p_board, p_histogram, level);
-        if (check_win_cpu(p_histogram)) {
+        if (check_win(p_histogram)) {
             printf("Game over! You lost...\n");
             return 0;
         }
-        if (check_win_user(cpu_histogram)) {
+        if (check_win(cpu_histogram)) {
             printf("Congrats! You are the winner!\n");
             return 0;
         }
