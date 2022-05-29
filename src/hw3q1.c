@@ -185,8 +185,8 @@ int place_ship_user(char board[BSIZE][BSIZE], int ship_id) {
 void place_ship_cpu(char board[BSIZE][BSIZE], int ship_id) {
     int x, y, dir_x, dir_y;
     do {
-        x = rand_range(0, 9);
-        y = rand_range(0, 9);
+        x = rand_range(0, BSIZE - 1);
+        y = rand_range(0, BSIZE - 1);
         dir_x = rand_range(-1, 1);
         dir_y = rand_range(-1, 1);
     } while (!place_ship(board, x, y, dir_x, dir_y, ship_id));
