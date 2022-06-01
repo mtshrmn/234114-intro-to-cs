@@ -31,7 +31,6 @@ bool are_sorted(char * strings[], int n);
 bool is_string_in_array(char * strings[], int n, char * string);
 void delete_words(char * words[], int n, char * sentence);
 
-
 int main()
 {
 	// If you don't know uncomment next line
