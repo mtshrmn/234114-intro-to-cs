@@ -1,0 +1,6 @@
+1
+Please enter your string and a non-negative integer...
+Non-Palindrome
+Mixed Palindrome
+2-Cyclic Palindrome
+Longest mixed substring is:8
