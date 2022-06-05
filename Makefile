@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -pedantic -ansi -W -O -g -std=c99
+CFLAGS=-Wall -Wextra -Werror -pedantic -Wno-maybe-uninitialized -fno-builtin -Wvla -ansi -W -O -g -std=c99
 ifeq (build,$(firstword $(MAKECMDGOALS)))
   BUILD_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
   $(eval $(BUILD_ARGS):;@:)
