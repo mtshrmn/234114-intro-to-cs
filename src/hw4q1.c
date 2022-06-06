@@ -121,7 +121,7 @@ bool isKCyclicPalindrome(char* str, int k) {
 	int len = strlen(str);
 	// rotating the string `len` times is equivalent to not rotating at all.
 	// that way we make sure that len is always bigger than k.
-	int modulo_k = k % len;
+	int modulo_k = MODULO(k, len);
 	int left = modulo_k;
 	int right = MODULO((modulo_k - 1), len);
 
@@ -137,7 +137,7 @@ bool isKCyclicPalindrome(char* str, int k) {
 
 int getLongestMixedSubstring(char* str) {
 	int len = strlen(str);
-	int count[256] = {0};
+	int count[CHAR_MAX] = {0};
 	int odd_count = 0;
 	int max = 0;
 
@@ -146,7 +146,7 @@ int getLongestMixedSubstring(char* str) {
 	for (int start = 0; start < len; ++start) {
 		// reset all variables.
 		odd_count = 0;
-		for (int i = 0; i < 256; ++i) {
+		for (int i = 0; i < CHAR_MAX; ++i) {
 			count[i] = 0;
 		}
 
@@ -156,7 +156,7 @@ int getLongestMixedSubstring(char* str) {
 		}
 
 		// calculate how many odd occurrences there are from `start` to real end.
-		for (int i = 0; i < 256; ++i) {
+		for (int i = 0; i < CHAR_MAX; ++i) {
 			if (count[i] % 2 == 1) {
 				odd_count++;
 			}
@@ -176,7 +176,7 @@ int getLongestMixedSubstring(char* str) {
 			if (count[(int) str[end]] % 2 == 0 && count[(int) str[end]] > 1) {
 				odd_count--;
 			}
-			count[(int)str[end]]--;
+			count[(int) str[end]]--;
 		}
 	}
   return max;
