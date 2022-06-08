@@ -135,29 +135,32 @@ bool isKCyclicPalindrome(char* str, int k) {
 	return true;
 }
 
+void reset_array(int arr[], int len) {
+	for (int i = 0; i < len; ++i) {
+		arr[i] = 0;
+	}
+}
+
 int getLongestMixedSubstring(char* str) {
 	int len = strlen(str);
-	int count[CHAR_MAX] = {0};
+	int occurrences[CHAR_MAX] = {0};
 	int odd_count = 0;
-	int max = 0;
+	int max_len = 0;
 
 	// we start from the beginning of the string, and go forwards.
 	// inside the loop we will go backwards until we find a mixed-palindrome.
-	for (int start = 0; start < len; ++start) {
-		// reset all variables.
+	for (int left = 0; left < len; ++left) {
 		odd_count = 0;
-		for (int i = 0; i < CHAR_MAX; ++i) {
-			count[i] = 0;
-		}
+		reset_array(occurrences, CHAR_MAX);
 
 		// count all letters in str. I CANNOT BELIEVE IT'S HISTOGRAM.
-		for (int end = len - 1; end >= start; --end) {
-			count[(int) str[end]]++;
+		for (int right = left; right < len; ++right) {
+			occurrences[(int) str[right]]++;
 		}
 
 		// calculate how many odd occurrences there are from `start` to real end.
 		for (int i = 0; i < CHAR_MAX; ++i) {
-			if (count[i] % 2 == 1) {
+			if (occurrences[i] % 2 == 1) {
 				odd_count++;
 			}
 		}
@@ -165,20 +168,22 @@ int getLongestMixedSubstring(char* str) {
 		// each time, go back from the end and check if we have less than 2 odds.
 		// if yes, it's a mixed palindrome, update the max palindrome if needed.
 		// if no, update the occurrences and subtract from the odds if it's an odd.
-		for (int end = len - 1; end >= start; --end) {
+		for (int right = len - 1; right >= left; --right) {
 			if (odd_count <= 1) {
-				max = MAX(max, (end - start + 1));
+				max_len = MAX(max_len, (right - left + 1));
 				// because we're moving backwards, the first time we get to this line-
 				// we are guaranteed to get the biggest mixed-palindrome for the current `start`
 				// so we can safely break and iterate over the next starting point.
 				break;
 			}
-			if (count[(int) str[end]] % 2 == 0 && count[(int) str[end]] > 1) {
+			int occurrence = occurrences[(int) str[right]];
+			if (occurrence % 2 == 0 && occurrence > 1) {
 				odd_count--;
 			}
-			count[(int) str[end]]--;
+			// faster than "occurrences[...]--" because we don't apply optimizations in our code.
+			occurrences[(int) str[right]] = occurrence - 1;
 		}
 	}
-  return max;
+  return max_len;
 }
 
