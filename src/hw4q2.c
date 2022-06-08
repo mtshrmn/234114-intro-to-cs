@@ -101,11 +101,11 @@ bool read_strings(char * strings[], int n) {
 	for (int i = 0; i < n; ++i) {
 		char tmp_str[MAX_LEN] = {0};
 		if (scanf("%s", tmp_str) != 1) {
-			free_strings(strings, n);
+			free_strings(strings, i);
 			return false;
 		}
-		char *str = malloc(sizeof(char) * strlen(tmp_str));
-		strcpy(tmp_str, str);
+		char *str = malloc(strlen(tmp_str) * sizeof(char));
+		strcpy(str, tmp_str);
 		strings[i] = str;
 	}
 	return true;
@@ -126,27 +126,50 @@ int strcmp_i(char *s1, char *s2) { // case insensitive comparison
 		s2++;
 	}
 	return LOWER(*s1) - LOWER(*s2);
-
 }
 
 bool is_string_in_array(char * strings[], int n, char * string) {
 	int left = 0;
-	int right = n;
-	while (right > left) {
+	int right = n - 1;
+	while (right >= left) {
 		int mid = left + (right - left) / 2;
 		int order = strcmp_i(string, strings[mid]);
 		if (order == 0) {
 			return true;
 		}
 		if (order > 0) {
-			left = mid;
+			left = mid + 1;
 		} else {
-			right = mid;
+			right = mid - 1;
 		}
 	}
 	return false;
 }
 
 void delete_words(char * words[], int n, char * sentence) {
+	int sentence_len = strlen(sentence);
+	int word_idx = 0;
+	char word[MAX_LEN] = {0};
+	char *tmp_sentence = malloc(sentence_len * sizeof(char));
+
+	for (int sentence_idx = 0; sentence_idx <= sentence_len; ++sentence_idx) {
+		if (sentence[sentence_idx] == '_' || sentence_idx == sentence_len) {
+			word[word_idx] = 0;
+			if (!is_string_in_array(words, n, word)) {
+				strcpy(tmp_sentence + strlen(tmp_sentence), "_");
+				strcpy(tmp_sentence + strlen(tmp_sentence), word);
+			}
+			// next word please!
+			for (int i = 0; i <= word_idx; ++i) {
+				word[i] = 0;
+			}
+			word_idx = 0;
+		} else {
+			word[word_idx] = sentence[sentence_idx];
+			word_idx++;
+		}
+	}
+	strcpy(sentence, tmp_sentence + 1);
+	free(tmp_sentence);
 }
 
