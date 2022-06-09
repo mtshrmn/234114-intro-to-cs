@@ -178,6 +178,9 @@ int getLongestMixedSubstring(char* str) {
 			}
 			int occurrence = occurrences[(int) str[right]];
 			if (occurrence % 2 == 0 && occurrence > 1) {
+				odd_count++;
+			}
+			if (occurrence % 2 == 1) {
 				odd_count--;
 			}
 			// faster than "occurrences[...]--" because we don't apply optimizations in our code.
