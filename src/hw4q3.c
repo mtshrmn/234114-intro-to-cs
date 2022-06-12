@@ -78,7 +78,7 @@ int main()
 
 char SectionATimeComplexity()
 {
-	return 'a';
+	return 'k';
 }
 
 char SectionASpaceComplexity()
@@ -88,7 +88,7 @@ char SectionASpaceComplexity()
 
 char SectionBTimeComplexity()
 {
-	return 'a';
+	return 'c';
 }
 
 char SectionBSpaceComplexity()
@@ -98,12 +98,12 @@ char SectionBSpaceComplexity()
 
 char SectionCTimeComplexity()
 {
-	return 'a';
+	return 'e';
 }
 
 char SectionCSpaceComplexity()
 {
-	return 'a';
+	return 'g';
 }
 
 
