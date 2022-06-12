@@ -2,6 +2,7 @@
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
+GRAY='\033[0;90m'
 NC='\033[0m' # No color
 for file in $(ls src/*.c); do
   hw_idx=$(echo $file | grep -Po '\d+' | head -1)
@@ -16,6 +17,10 @@ for file in $(ls src/*.c); do
     input="tests/HW${hw_idx}/hw${hw_idx}q${question_id}in${test}.txt"
     output="tests/HW${hw_idx}/hw${hw_idx}q${question_id}out${test}.txt"
     printf "$input - "
+    if [ ! -f $output ]; then
+      printf "${GRAY}SKIPPING${NC}\n"
+      continue
+    fi
      ./$file < $input | diff --suppress-common-lines --strip-trailing-cr --ignore-trailing-space --color=always $output - > /dev/null
     if [ $? -eq 0 ]; then
       printf "${GREEN}PASS${NC}\n"
