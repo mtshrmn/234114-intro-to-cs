@@ -111,21 +111,21 @@ bool read_strings(char * strings[], int n) {
 	return true;
 }
 
-bool are_sorted(char * strings[], int n) {
-	for (int i = 0; i < n - 1; ++i) {
-		if (strcmp(strings[i], strings[i+1]) > 0) {
-			return false;
-		}
-	}
-	return true;
-}
-
 int strcmp_i(char *s1, char *s2) { // case insensitive comparison
 	while (*s1 && *s2 && LOWER(*s1) == LOWER(*s2)) {
 		s1++;
 		s2++;
 	}
 	return LOWER(*s1) - LOWER(*s2);
+}
+
+bool are_sorted(char * strings[], int n) {
+	for (int i = 0; i < n - 1; ++i) {
+		if (strcmp_i(strings[i], strings[i+1]) > 0) {
+			return false;
+		}
+	}
+	return true;
 }
 
 bool is_string_in_array(char * strings[], int n, char * string) {
