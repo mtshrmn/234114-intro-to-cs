@@ -88,7 +88,7 @@ char SectionASpaceComplexity()
 
 char SectionBTimeComplexity()
 {
-	return 'c';
+	return 'g';
 }
 
 char SectionBSpaceComplexity()
