@@ -151,6 +151,10 @@ void delete_words(char * words[], int n, char * sentence) {
 	int word_idx = 0;
 	char word[MAX_LEN] = {0};
 	char *tmp_sentence = malloc(sentence_len * sizeof(char));
+	// reset tmp_sentence
+	for (int i = 0; i < sentence_len; ++i) {
+		tmp_sentence[i] = 0;
+	}
 
 	for (int sentence_idx = 0; sentence_idx <= sentence_len; ++sentence_idx) {
 		if (sentence[sentence_idx] == '_' || sentence_idx == sentence_len) {
