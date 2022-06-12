@@ -98,16 +98,20 @@ void free_strings(char * strings[], int n) {
 }
 
 bool read_strings(char * strings[], int n) {
+	char *tmp_str = malloc((MAX_LEN + 1) * sizeof(char));
 	for (int i = 0; i < n; ++i) {
-		char tmp_str[MAX_LEN] = {0};
 		if (scanf("%s", tmp_str) != 1) {
 			free_strings(strings, i);
+			free(tmp_str);
 			return false;
 		}
-		char *str = malloc(strlen(tmp_str) * sizeof(char));
+		int len = strlen(tmp_str);
+		char *str = malloc((len + 1) * sizeof(char));
+		// str[len] = 0; // why?
 		strcpy(str, tmp_str);
 		strings[i] = str;
 	}
+	free(tmp_str);
 	return true;
 }
 
@@ -149,10 +153,10 @@ bool is_string_in_array(char * strings[], int n, char * string) {
 void delete_words(char * words[], int n, char * sentence) {
 	int sentence_len = strlen(sentence);
 	int word_idx = 0;
-	char word[MAX_LEN] = {0};
-	char *tmp_sentence = malloc(sentence_len * sizeof(char));
+	char word[MAX_SENTENCE_LEN] = {0};
+	char *tmp_sentence = malloc((sentence_len + 1)* sizeof(char));
 	// reset tmp_sentence
-	for (int i = 0; i < sentence_len; ++i) {
+	for (int i = 0; i <= sentence_len; ++i) {
 		tmp_sentence[i] = 0;
 	}
 
