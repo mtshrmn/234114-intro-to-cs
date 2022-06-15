@@ -98,31 +98,21 @@ void free_strings(char * strings[], int n) {
 }
 
 bool read_strings(char * strings[], int n) {
-	char *tmp_str = malloc((MAX_LEN + 1) * sizeof(char));
-	if (tmp_str == NULL) {
-		return false;
-	}
-	// set tmp_str to empty string.
-	for (int i = 0; i < n; ++i) {
-		tmp_str[i] = 0;
-	}
+	char tmp_str[MAX_LEN + 1] = {0};
 	for (int i = 0; i < n; ++i) {
 		if (scanf("%s", tmp_str) != 1) {
 			free_strings(strings, i);
-			free(tmp_str);
 			return false;
 		}
 		int len = strlen(tmp_str);
 		char *str = malloc((len + 1) * sizeof(char));
 		if (str == NULL) {
-			free(tmp_str);
 			free_strings(strings, i - 1);
 			return false;
 		}
 		strcpy(str, tmp_str);
 		strings[i] = str;
 	}
-	free(tmp_str);
 	return true;
 }
 
