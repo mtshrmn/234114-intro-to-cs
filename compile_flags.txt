@@ -1,0 +1,1 @@
+-Wall -Wextra -Werror -pedantic -ansi -W -O -g -std=c99
