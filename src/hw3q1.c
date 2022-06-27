@@ -7,6 +7,7 @@
 #define SHIP_B 3
 #define SHIP_C 4
 #define SHIP_D 5
+#define MIN(A, B) (A > B ? B : A)
 
 int rand_range(int low, int high) { // RAND_MAX assumed to be 32767
     static unsigned int next = 1;
@@ -319,7 +320,13 @@ void attack_board_cpu(p_board, histogram, level)
     int level;
 {
     int attack_result = 0, x = 0, y = 0;
-    for (int i = 0; i < level; ++i) {
+    int unkowns = 0;
+    for (int i = 0; i < BSIZE * BSIZE; ++i) {
+        if (p_board[i / BSIZE][i % BSIZE] < 'a') {
+            unkowns++;
+        }
+    }
+    for (int i = 0; i < MIN(level, unkowns); ++i) {
         do {
             x = rand_range(0, 9);
             y = rand_range(0, 9);
