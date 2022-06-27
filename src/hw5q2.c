@@ -37,7 +37,7 @@ int main() {
     return 0;
 }
 
-bool reverse_int(unsigned int x, unsigned int partial) {
+unsigned int reverse_int(unsigned int x, unsigned int partial) {
     if (x == 0) {
         return partial;
     }
@@ -55,8 +55,7 @@ int represent(unsigned int x){
     }
     unsigned int product = 1;
     while (x > 0) {
-        unsigned int remainder = x % 10;
-        product *= remainder;
+        product *= x % 10;
         x /= 10;
     }
     return represent(product);
@@ -66,25 +65,28 @@ int order(unsigned int a, unsigned int b) {
     int is_a_pal = isPalindrome(a);
     int is_b_pal = isPalindrome(b);
     if (is_a_pal != is_b_pal) {
-        return is_b_pal - is_a_pal;
+        return is_a_pal - is_b_pal;
     }
 
     int represent_a = represent(a);
     int represent_b = represent(b);
     if (represent_b != represent_a) {
-        return represent_a - represent_b;
+        return represent_b - represent_a;
     }
 
-    return a - b;
+    if (b < a) {
+        return -1;
+    }
+    return b - a;
 }
 
 void sort_arr(unsigned *arr, int len) {
     for (int i = 1; i < len; ++i) {
-        for (int j = 1; j < len; ++j) {
-            if (order(arr[i], arr[j]) < 0) {
+        for (int j = i; j > 0; --j) {
+            if (order(arr[j-1], arr[j]) < 0) {
                 // swap items
-                unsigned int tmp = arr[i];
-                arr[i] = arr[j];
+                unsigned int tmp = arr[j-1];
+                arr[j-1] = arr[j];
                 arr[j] = tmp;
             }
         }
