@@ -15,6 +15,13 @@ ifeq (archive,$(firstword $(MAKECMDGOALS)))
   $(eval $(ARCHIVE_ARGS):;@:)
 endif
 
+ifeq (diff,$(firstword $(MAKECMDGOALS)))
+  FILE:= $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  $(eval $(FILE):;@:)
+endif
+
+
+
 
 test: bin
 	@./test.sh
@@ -37,3 +44,6 @@ bin:
 
 students:
 	@touch students.txt
+
+diff:
+	@python pdiff.py src/$(FILE).c
